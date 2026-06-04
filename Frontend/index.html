@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Drifting colour blobs — the glass cards blur these to create the frosted effect -->
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+  <div class="bg-blob blob-3"></div>
+
+  <div class="app-wrapper">
+
+    <!-- ── HEADER ── -->
+    <header class="app-header">
+      <div class="header-top">
+        <span class="header-eyebrow">MY WALLET</span>
+        <span class="header-date" id="headerDate"></span>
+      </div>
+      <h1 class="app-title">Limitly</h1>
+    </header>
+
+    <!-- ── SET LIMIT ── -->
+    <section class="glass-card">
+      <label class="field-label" for="limitInput">Monthly Limit</label>
+      <div class="input-row">
+        <!--
+          .field = ONE container with ONE border.
+          The ₹ prefix and input sit inside it together.
+          This is what removes the double-box problem.
+        -->
+        <div class="field">
+          <span class="field-prefix">₹</span>
+          <input type="number" id="limitInput" class="glass-input" placeholder="5,000" min="1"/>
+        </div>
+        <button id="setLimitBtn" class="glass-btn btn-secondary">Set</button>
+      </div>
+      <p class="limit-pill" id="limitDisplay" style="display:none">
+        <span class="pill-dot"></span>
+        <span id="limitDisplayText"></span>
+      </p>
+    </section>
+
+    <!-- ── STATS ── -->
+    <div class="stats-row">
+      <div class="glass-card stat-card">
+        <span class="stat-label">Spent</span>
+        <span class="stat-value" id="totalSpent">₹0</span>
+      </div>
+      <div class="glass-card stat-card">
+        <span class="stat-label">Remaining</span>
+        <span class="stat-value remain-value" id="remaining">—</span>
+      </div>
+    </div>
+
+    <!-- ── PROGRESS ── -->
+    <div class="glass-card progress-card" id="progressWrap" style="display:none">
+      <span class="field-label">Budget Used</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+        <span class="progress-pct" id="progressPct">0%</span>
+      </div>
+      <div class="progress-footer">
+        <div class="prog-stat">
+          <span class="prog-stat-label">Spent</span>
+          <span class="prog-stat-val" id="progSpent">₹0</span>
+        </div>
+        <div class="prog-stat prog-stat--right">
+          <span class="prog-stat-label">Remaining</span>
+          <span class="prog-stat-val" id="progRemaining">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── WARNING ── -->
+    <div class="warning-glass" id="warningBanner" style="display:none">
+      <span class="warn-icon">⚠️</span>
+      <div class="warn-text">
+        <strong>Heads up!</strong> You've used <span id="warningPct">90%</span> of your budget.
+      </div>
+    </div>
+
+    <!-- ── ADD EXPENSE ── -->
+    <section class="glass-card">
+      <label class="field-label">Add Expense</label>
+      <div class="input-row">
+        <div class="field">
+          <span class="field-prefix">₹</span>
+          <input type="number" id="expenseAmount" class="glass-input" placeholder="Amount" min="1"/>
+        </div>
+        <!-- Note field: no prefix needed so it uses .standalone -->
+        <input type="text" id="expenseNote" class="glass-input standalone" placeholder="Spent On"/>
+        <button id="addExpenseBtn" class="glass-btn btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          Add
+        </button>
+      </div>
+      <select id="expenseCategory" class="glass-select">
+        <option value="General">📦  General</option>
+        <option value="Food">🍔  Food</option>
+        <option value="Transport">🚌  Transport</option>
+        <option value="Shopping">🛍️  Shopping</option>
+        <option value="Health">💊  Health</option>
+        <option value="Entertainment">🎬  Entertainment</option>
+        <option value="Bills">💡  Bills</option>
+      </select>
+    </section>
+
+    <!-- ── TRANSACTIONS ── -->
+    <section class="list-section" id="listSection" style="display:none">
+      <div class="list-header">
+        <h2 class="list-title">Transactions</h2>
+        <button id="clearBtn" class="ghost-btn">Clear all</button>
+      </div>
+      <ul class="expense-list" id="expenseList"></ul>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
